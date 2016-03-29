@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Green hat</string>
+    <string name="hint_password">Código de Seguridad</string>
+    <string name="login_text_button">Login</string>
+    <string name="error_required_field">Es requerido un password</string>
+    <string name="error_wrong_length">El código de seguridad es de solo 4 dígitos</string>
+    <string name="valid_password">2222</string>
+    <string name="text_button_book">Libro</string>
+</resources>
