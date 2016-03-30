@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#4caf50</color>
     <color name="colorPrimaryDark">#2e7d32</color>
-    <color name="colorAccent">#00b8d4</color>
+    <color name="colorAccent">#e0f7fa</color>
     <color name="disabledLoginButton">#bebebe</color>
-    <color name="activatedLoginButton">#2baf2b</color>
-    <color name="pressedLoginButton">#056f00</color>
+    <color name="activatedLoginButton">#135d9d</color>
+    <color name="pressedLoginButton">#00b8d4</color>
 </resources>

@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_login"
+        android:scaleType="centerCrop"/>
+
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="wrap_content"
@@ -14,12 +20,13 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="300dp"
+            android:minWidth="400dp"
             android:inputType="numberPassword"
             android:ems="10"
             android:id="@+id/editTextPassword"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:hint="@string/hint_password"
             android:layout_gravity="center_horizontal" />
 
@@ -35,10 +42,47 @@
         android:textColor="@android:color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_below="@+id/view"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
         android:layout_alignLeft="@+id/view"
         android:layout_alignStart="@+id/view"
         android:layout_alignRight="@+id/view"
         android:layout_alignEnd="@+id/view" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="145dp"
+        android:id="@+id/imageView3"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/logo_blanco" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:maxHeight="60dp"
+        android:adjustViewBounds="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/copyrights_login" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:maxHeight="60dp"
+        android:adjustViewBounds="true"
+        android:layout_alignBottom="@+id/view"
+        android:layout_toLeftOf="@+id/view"
+        android:layout_toStartOf="@+id/view"
+        android:src="@drawable/key"
+        android:layout_alignTop="@+id/view" />
 
 </RelativeLayout>
