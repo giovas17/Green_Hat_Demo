@@ -32,7 +32,7 @@ public class Login extends Fragment {
             public void onClick(View v) {
                 if (validatePassword()){
                     if (passwordInput.getText().toString().equalsIgnoreCase(getString(R.string.valid_password))){
-                        Intent intent = new Intent(getActivity(), com.giovani.greenhat.Librero.class);
+                        Intent intent = new Intent(getActivity(), com.giovani.greenhat.Menu.class);
                         startActivity(intent);
                     }
                 }

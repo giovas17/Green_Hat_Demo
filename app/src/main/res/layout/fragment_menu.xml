@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_menu"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/activatedLoginButton">
+
+        <ImageView
+            android:id="@+id/nosotrosButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/nosotros"/>
+
+        <ImageView
+            android:id="@+id/libreriaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:clickable="true"
+            android:src="@drawable/mis_libros"/>
+
+        <ImageView
+            android:id="@+id/contactButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/contacto"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView6"
+        android:maxHeight="85dp"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/slogan" />
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:id="@+id/view2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCatalogo"
+        android:maxWidth="120dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/catalogo"
+        android:layout_alignTop="@+id/view2"
+        android:layout_toRightOf="@+id/view2"
+        android:layout_toEndOf="@+id/view2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView8"
+        android:maxHeight="180dp"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/imageView6"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_menu" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonTienda"
+        android:maxHeight="54dp"
+        android:adjustViewBounds="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/buttonCatalogo"
+        android:layout_toEndOf="@+id/buttonCatalogo"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/tienda" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonAccess"
+        android:src="@drawable/acceso"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/buttonTienda"
+        android:layout_alignLeft="@+id/buttonTienda"
+        android:layout_alignStart="@+id/buttonTienda"
+        android:layout_alignRight="@+id/buttonTienda"
+        android:layout_alignEnd="@+id/buttonTienda" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonFace"
+        android:src="@drawable/fb"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/buttonAccess"
+        android:layout_toRightOf="@+id/buttonTienda"
+        android:layout_toEndOf="@+id/buttonTienda"
+        android:layout_alignBottom="@+id/buttonTienda" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonTwitter"
+        android:layout_alignBottom="@+id/buttonAccess"
+        android:layout_toRightOf="@+id/buttonAccess"
+        android:layout_toEndOf="@+id/buttonAccess"
+        android:src="@drawable/tw"
+        android:layout_alignTop="@+id/buttonAccess" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView9"
+        android:maxHeight="70dp"
+        android:layout_marginBottom="20dp"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/buttonAccess"
+        android:layout_alignLeft="@+id/buttonAccess"
+        android:layout_alignStart="@+id/buttonAccess"
+        android:src="@drawable/dirección" />
+
+</RelativeLayout>
