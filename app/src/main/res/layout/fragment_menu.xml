@@ -64,6 +64,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonCatalogo"
         android:maxWidth="120dp"
+        android:clickable="true"
         android:adjustViewBounds="true"
         android:src="@drawable/catalogo"
         android:layout_alignTop="@+id/view2"
@@ -138,6 +139,6 @@
         android:layout_above="@+id/buttonAccess"
         android:layout_alignLeft="@+id/buttonAccess"
         android:layout_alignStart="@+id/buttonAccess"
-        android:src="@drawable/dirección" />
+        android:src="@drawable/direccion" />
 
 </RelativeLayout>

@@ -1,15 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_button_book"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@android:color/white">
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/descargatulibro" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView10"
+            android:maxWidth="270dp"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_catalogo" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/cajon">
+
+            <ImageView
+                android:id="@+id/book1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib1"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib2"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib3"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/cajon">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib4"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib5"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib1"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/cajon">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib7"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib8"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/lib9"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
