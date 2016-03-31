@@ -6,4 +6,5 @@
     <color name="disabledLoginButton">#bebebe</color>
     <color name="activatedLoginButton">#135d9d</color>
     <color name="pressedLoginButton">#00b8d4</color>
+    <color name="background_drawing">#8bc44a</color>
 </resources>
