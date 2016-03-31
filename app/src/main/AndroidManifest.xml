@@ -23,8 +23,7 @@
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Menu"
             android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".DrawingPage"
-            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".DrawingPage"/>
         <meta-data android:name="com.giovani.modules.GlideConfiguration"
             android:value="GlideModule"/>
 

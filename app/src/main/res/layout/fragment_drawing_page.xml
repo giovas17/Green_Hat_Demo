@@ -36,7 +36,8 @@
         android:layout_marginStart="60dp"
         android:background="@drawable/background_white">
 
-        <ScrollView
+        <com.giovani.views.CustomScroll
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -67,7 +68,7 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"/>
 
-                    <View
+                    <com.giovani.views.Lienzo
                         android:id="@+id/drawImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
@@ -76,7 +77,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </com.giovani.views.CustomScroll>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -123,19 +124,24 @@
                 android:padding="3dp"
                 android:src="@drawable/linea"
                 android:adjustViewBounds="true"/>
+
             <ImageView
+                android:id="@+id/trazoLibre"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="3dp"
+                android:clickable="true"
                 android:src="@drawable/trazo"
                 android:adjustViewBounds="true"/>
 
             <ImageView
+                android:id="@+id/goma"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="3dp"
+                android:clickable="true"
                 android:src="@drawable/borrar"
                 android:adjustViewBounds="true"/>
 
