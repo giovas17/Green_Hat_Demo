@@ -37,6 +37,7 @@ public class DrawingPage extends Fragment {
 
     private CustomScroll scroll;
     private TypeDraw typeDraw = TypeDraw.NONE;
+    private ImageView trazo,erase;
 
     @Nullable
     @Override
@@ -49,42 +50,64 @@ public class DrawingPage extends Fragment {
         final Lienzo lienzo = (Lienzo)v.findViewById(R.id.drawImage);
         lienzo.setBackgroundColor(Color.TRANSPARENT);
 
-        final ImageView trazo = (ImageView)v.findViewById(R.id.trazoLibre);
+        trazo = (ImageView)v.findViewById(R.id.trazoLibre);
         trazo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean selected;
-                if (trazo.getTag() == null) {
-                    selected = false;
-                    trazo.setTag(selected);
+                if (typeDraw == TypeDraw.PENCIL){
+                    typeDraw = TypeDraw.NONE;
+                }else {
+                    typeDraw = TypeDraw.PENCIL;
                 }
-                selected = (boolean) trazo.getTag();
-                scroll.setmScrollable(selected);
-                trazo.setBackgroundColor(!selected ? Color.YELLOW : Color.TRANSPARENT);
-                lienzo.setTypeDraw(!selected ? TypeDraw.PENCIL : TypeDraw.NONE);
-                trazo.setTag(!selected);
+                lienzo.setTypeDraw(typeDraw);
+                updateViews(typeDraw);
             }
         });
 
-        final ImageView erase = (ImageView)v.findViewById(R.id.goma);
+        erase = (ImageView)v.findViewById(R.id.goma);
         erase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean selected;
-                if (erase.getTag() == null){
-                    selected = false;
-                    erase.setTag(selected);
+                if (typeDraw == TypeDraw.ERASE){
+                    typeDraw = TypeDraw.NONE;
+                }else {
+                    typeDraw = TypeDraw.ERASE;
                 }
-                selected = (boolean)erase.getTag();
-                scroll.setmScrollable(selected);
-                erase.setBackgroundColor(!selected ? Color.YELLOW : Color.TRANSPARENT);
-                lienzo.setTypeDraw(!selected ? TypeDraw.ERASE : TypeDraw.NONE);
-                erase.setTag(!selected);
+                lienzo.setTypeDraw(typeDraw);
+                updateViews(typeDraw);
             }
         });
 
         scroll = (CustomScroll)v.findViewById(R.id.scroll);
         return v;
+    }
+
+    private void updateViews(TypeDraw type){
+        Log.v("UpdatesViews",type.name());
+        switch (type){
+            case NONE:{
+                scroll.setmScrollable(true);
+                trazo.setBackgroundColor(Color.TRANSPARENT);
+                erase.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            }
+            case PENCIL:{
+                scroll.setmScrollable(false);
+                trazo.setBackgroundColor(Color.YELLOW);
+                erase.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            }
+            case ERASE:{
+                scroll.setmScrollable(false);
+                erase.setBackgroundColor(Color.YELLOW);
+                trazo.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            }
+            default:{
+                scroll.setmScrollable(false);
+                break;
+            }
+        }
     }
 
 }

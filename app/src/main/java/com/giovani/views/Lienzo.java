@@ -1,6 +1,7 @@
 package com.giovani.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.giovani.enums.TypeDraw;
+import com.giovani.objects.DrawingAction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by darkgeat on 3/31/16.
@@ -27,10 +32,12 @@ public class Lienzo extends View {
     private Paint paintEraser = new Paint();
     private Path path = new Path();
     private Path pathEraser = new Path();
-
+    private Bitmap bitmap;
+    private Canvas mCanvas = new Canvas();
     private float lastTouchX;
     private float lastTouchY;
     private final RectF dirtyRect = new RectF();
+    private List<DrawingAction> drawings = new ArrayList<>();
 
     public Lienzo(Context context, AttributeSet attrs)
     {
@@ -89,8 +96,20 @@ public class Lienzo extends View {
     @Override
     protected void onDraw(Canvas canvas)
     {
-        canvas.drawPath(path, paint);
-        canvas.drawPath(pathEraser,paintEraser);
+        if (bitmap == null) {
+            bitmap = Bitmap.createBitmap(800, 1200, Bitmap.Config.ARGB_8888);
+            mCanvas = new Canvas(bitmap);
+        }
+        mCanvas.drawColor(Color.TRANSPARENT);
+        if (typeDraw == TypeDraw.PENCIL){
+            drawings.add(new DrawingAction(path,paint,TypeDraw.PENCIL,0,0));
+        }else if (typeDraw == TypeDraw.ERASE){
+            drawings.add(new DrawingAction(pathEraser,paintEraser,TypeDraw.ERASE,0,0));
+        }
+        for (DrawingAction action : drawings){
+            mCanvas.drawPath(action.getPath(),action.getPaint());
+        }
+        canvas.drawBitmap(bitmap,0,0,null);
     }
 
     @Override
@@ -205,7 +224,9 @@ public class Lienzo extends View {
             paint.setStrokeWidth(STROKE_WIDTH);
         }else if (typeDraw == TypeDraw.ERASE){
             paintEraser.setAlpha(0xFF);
+            paintEraser.setColor(Color.TRANSPARENT);
             paintEraser.setStyle(Paint.Style.STROKE);
+            paintEraser.setMaskFilter(null);
             paintEraser.setStrokeJoin(Paint.Join.ROUND);
             paintEraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
             paintEraser.setStrokeWidth(STROKE_BIG_WIDTH);
