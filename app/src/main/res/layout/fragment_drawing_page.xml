@@ -5,36 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_drawing">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="4dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="230dp"
-            android:padding="10dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo_catalogo"/>
-
-    </android.support.v7.widget.CardView>
-
     <RelativeLayout
         android:id="@+id/AreaWork"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/background_white">
+        android:layout_height="match_parent">
 
         <com.giovani.views.CustomScroll
             android:id="@+id/scroll"
@@ -45,12 +19,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/containerControls"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp">
+            android:layout_above="@+id/containerControls">
 
             <LinearLayout
                 android:orientation="vertical" android:layout_width="match_parent"
@@ -82,7 +51,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView11"
+            android:id="@+id/imageClearAll"
             android:maxWidth="80dp"
             android:adjustViewBounds="true"
             android:src="@drawable/exit"
@@ -103,13 +72,16 @@
             android:layout_alignParentStart="true">
 
             <ImageView
+                android:id="@+id/circleDrawing"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:src="@drawable/circulo"
                 android:adjustViewBounds="true"/>
+
             <ImageView
+                android:id="@+id/squareDrawing"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -118,6 +90,7 @@
                 android:adjustViewBounds="true"/>
 
             <ImageView
+                android:id="@+id/lineDrawing"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -168,10 +141,12 @@
 
     </RelativeLayout>
 
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView12"
+        android:id="@+id/imageBack"
         android:maxWidth="65dp"
         android:adjustViewBounds="true"
         android:layout_alignParentTop="true"
@@ -179,72 +154,6 @@
         android:layout_alignParentStart="true"
         android:src="@drawable/back" />
 
-    <View
-        android:layout_width="5dp"
-        android:layout_height="2dp"
-        android:background="@android:color/black"
-        android:layout_centerVertical="true"
-        android:id="@+id/imageView14" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonSave"
-        android:layout_above="@+id/imageView14"
-        android:src="@drawable/guardar"
-        android:padding="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toRightOf="@+id/AreaWork"
-        android:layout_alignRight="@+id/buttonGallery"
-        android:layout_alignEnd="@+id/buttonGallery" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonGallery"
-        android:layout_above="@+id/buttonSave"
-        android:src="@drawable/galeria"
-        android:padding="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/imageView12"
-        android:layout_alignEnd="@+id/imageView12" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonNext"
-        android:layout_below="@+id/imageView14"
-        android:src="@drawable/next"
-        android:padding="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/buttonForward"
-        android:layout_alignEnd="@+id/buttonForward" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonForward"
-        android:layout_below="@+id/buttonNext"
-        android:src="@drawable/forward"
-        android:padding="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/imageView12"
-        android:layout_alignEnd="@+id/imageView12" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonTrash"
-        android:maxWidth="60dp"
-        android:adjustViewBounds="true"
-        android:layout_margin="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/trash" />
 
 </RelativeLayout>

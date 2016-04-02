@@ -6,4 +6,10 @@
     <string name="error_wrong_length">El código de seguridad es de solo 4 dígitos</string>
     <string name="valid_password">2222</string>
     <string name="text_button_book">Libro</string>
+    <string name="editadas">editadas</string>
+    <string name="paginas_editadas">Ver Paginas Editadas</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancelar</string>
+    <string name="title">title</string>
+    <string name="message">message</string>
 </resources>

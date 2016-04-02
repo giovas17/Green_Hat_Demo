@@ -2,28 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.giovani.greenhat">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash"
-            android:screenOrientation="sensorLandscape">
+        <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"
-            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".Login"/>
         <activity android:name=".Librero"
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Paginas"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity android:name=".Menu"
             android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".DrawingPage"/>
+        <activity android:name=".DrawingPage"
+            android:screenOrientation="sensorPortrait"/>
         <meta-data android:name="com.giovani.modules.GlideConfiguration"
             android:value="GlideModule"/>
 

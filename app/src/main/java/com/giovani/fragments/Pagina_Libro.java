@@ -14,28 +14,56 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.module.GlideModule;
+import com.giovani.dialogs.SimpleDialog;
 import com.giovani.greenhat.*;
 
 /**
  * Created by DarkGeat on 3/28/2016.
  */
 public class Pagina_Libro extends Fragment {
+
+    private int image;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_item_pagina,container,false);
-        final int image = getArguments().getInt("page");
-        ImageView pagina = (ImageView)v.findViewById(R.id.imagePagina);
-        Glide.with(this).load(image).into(pagina);
+        final View view = inflater.inflate(R.layout.fragment_item_pagina, container, false);
+        final ImageView pagina = (ImageView)view.findViewById(R.id.imagePagina);
+        final boolean images = getArguments().getBoolean("selector");
+        if (images) {
+            String image = getArguments().getString("page");
+            view.setTag(image);
+            Glide.with(this).load(image).into(pagina);
+        }else {
+            image = getArguments().getInt("page");
+            Glide.with(this).load(image).into(pagina);
+        }
         pagina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), com.giovani.greenhat.DrawingPage.class);
-                intent.putExtra("image",image);
-                startActivity(intent);
+                if (!images) {
+                    Intent intent = new Intent(getActivity(), com.giovani.greenhat.DrawingPage.class);
+                    intent.putExtra("image", image);
+                    startActivity(intent);
+                }else {
+                    SimpleDialog borrado = new SimpleDialog(getContext(), "Borrado", "¿Quiere borrar este elemento?", new SimpleDialog.okListener() {
+                        @Override
+                        public void OnOkSelected() {
+                            Menu.imagesEdited.remove((String)view.getTag());
+                            Menu.updateImagesEdited(getActivity(), Menu.imagesEdited);
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void OnCancelSelected() {
+
+                        }
+                    });
+                    borrado.show();
+                }
             }
         });
-        return v;
+        return view;
     }
 
 }

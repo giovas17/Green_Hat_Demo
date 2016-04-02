@@ -29,6 +29,17 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/logo_catalogo" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paginas_editadas"
+            android:id="@+id/buttonEditadas"
+            android:background="@drawable/button_login"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/imageView7"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="71dp" />
     </RelativeLayout>
 
     <TableLayout

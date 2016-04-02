@@ -24,6 +24,9 @@ public class Librero extends Fragment implements View.OnClickListener{
 
         ImageView book = (ImageView) v.findViewById(R.id.book1);
         book.setOnClickListener(this);
+
+        Button editadas = (Button)v.findViewById(R.id.buttonEditadas);
+        editadas.setOnClickListener(this);
         return v;
     }
 
@@ -33,6 +36,13 @@ public class Librero extends Fragment implements View.OnClickListener{
         if (v.getId() == R.id.book1){
             intent = new Intent(getActivity(), com.giovani.greenhat.Paginas.class);
             startActivity(intent);
+        }else if (v.getId() == R.id.buttonEditadas){
+            Menu.imagesEdited = Menu.getImagesEdited(getContext());
+            if (Menu.imagesEdited.size() > 0) {
+                intent = new Intent(getActivity(), com.giovani.greenhat.Paginas.class);
+                intent.putExtra("origin", "librero");
+                startActivity(intent);
+            }
         }
     }
 }
