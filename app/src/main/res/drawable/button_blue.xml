@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/pressedLoginButton"/>
+            <padding android:bottom="@dimen/paddingLoginButton"
+                android:left="@dimen/paddingLoginButton"
+                android:right="@dimen/paddingLoginButton"
+                android:top="@dimen/paddingLoginButton"/>
+            <stroke android:color="@color/pressedLoginButton" android:width="2dp"/>
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <padding android:bottom="@dimen/paddingLoginButton"
+                android:left="@dimen/paddingLoginButton"
+                android:right="@dimen/paddingLoginButton"
+                android:top="@dimen/paddingLoginButton"/>
+            <stroke android:color="@color/disabledLoginButton" android:width="2dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/activatedLoginButton"/>
+            <padding android:bottom="@dimen/paddingLoginButton"
+                android:left="@dimen/paddingLoginButton"
+                android:right="@dimen/paddingLoginButton"
+                android:top="@dimen/paddingLoginButton"/>
+            <stroke android:color="@color/activatedLoginButton" android:width="2dp"/>
+        </shape>
+    </item>
+</selector>

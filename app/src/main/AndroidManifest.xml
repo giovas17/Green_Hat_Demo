@@ -19,11 +19,11 @@
         </activity>
         <activity android:name=".Login"/>
         <activity android:name=".Librero"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity android:name=".Paginas"
             android:screenOrientation="sensorPortrait"/>
         <activity android:name=".Menu"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorPortrait"/>
         <activity android:name=".DrawingPage"
             android:screenOrientation="sensorPortrait"/>
         <meta-data android:name="com.giovani.modules.GlideConfiguration"
