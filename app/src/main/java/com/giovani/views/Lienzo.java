@@ -71,17 +71,6 @@ public class Lienzo extends View {
 
     public void save(View v)
     {
-            /*Log.e("log_tag", "Width: " + v.getWidth());
-            Log.e("log_tag", "Height: " + v.getHeight());
-            //This is the last size of the image
-            int lastWidht = v.getWidth();
-            int lastHeight = v.getHeight();
-            mContent.setBackgroundColor(Color.WHITE);
-            if(mBitmap == null)
-            {
-                mBitmap =  Bitmap.createBitmap(mContent.getWidth(), mContent.getHeight(), Bitmap.Config.ARGB_8888);
-            }
-            Canvas canvas = new Canvas(mBitmap);*/
             try
             {
                 v.setDrawingCacheEnabled(true);
@@ -109,7 +98,9 @@ public class Lienzo extends View {
             }
     }
 
-
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 
     public void clear()
     {
