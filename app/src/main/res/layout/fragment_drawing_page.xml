@@ -146,6 +146,7 @@
                 android:adjustViewBounds="true"/>
 
             <ImageView
+                android:id="@+id/customText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -166,9 +167,24 @@
                 android:adjustViewBounds="true"/>
         </LinearLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/containerControls"
+            android:src="@drawable/ic_palette"
+            app:fabSize="normal"
+            app:elevation="6dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/colorPrimaryDark"
+            app:backgroundTint="@android:color/holo_red_dark"
+            android:layout_marginBottom="23dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
-
-
 
     <ImageView
         android:layout_width="wrap_content"

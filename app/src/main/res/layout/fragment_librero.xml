@@ -53,14 +53,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/portada1"
+                android:src="@drawable/primaria5"
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"/>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/portadarobotica3"
+                android:src="@drawable/primaria1"
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"/>
             <ImageView
@@ -82,21 +82,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib4"
+                android:src="@drawable/portadarobotica3"
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"/>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib5"
+                android:src="@drawable/pimaria3"
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"/>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib1"
+                android:src="@drawable/primaria6"
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"/>
 
@@ -111,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib7"
+                android:src="@drawable/portadarobotica5"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="50dp"
@@ -120,7 +120,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib8"
+                android:src="@drawable/portada1"
                 android:paddingRight="20dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="50dp"
@@ -129,7 +129,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/lib9"
+                android:src="@drawable/portadarobotica3"
                 android:paddingRight="20dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="50dp"

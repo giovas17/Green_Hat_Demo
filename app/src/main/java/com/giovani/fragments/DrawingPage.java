@@ -2,6 +2,7 @@ package com.giovani.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,11 +28,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.giovani.dialogs.ColorPickerDialog;
 import com.giovani.dialogs.SimpleDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.greenhat.R;
+import com.giovani.listeners.OnColorListener;
 import com.giovani.views.CustomScroll;
 import com.giovani.views.Lienzo;
+import com.larswerkman.lobsterpicker.LobsterPicker;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +45,7 @@ import java.util.Date;
 /**
  * Created by DarkGeat on 3/31/2016.
  */
-public class DrawingPage extends Fragment implements com.giovani.greenhat.DrawingPage.onBackListener, View.OnTouchListener{
+public class DrawingPage extends Fragment implements com.giovani.greenhat.DrawingPage.onBackListener, View.OnTouchListener, OnColorListener {
 
     private CustomScroll scroll;
     private TypeDraw typeDraw = TypeDraw.NONE;
@@ -51,9 +56,12 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
     private ImageView square;
     private ImageView lienzoImage;
     private ImageView page;
+    private ImageView customText;
     private CheckBox zooming;
     private FrameLayout completeImage;
     private Lienzo lienzo;
+    private int colorSelected = Color.RED, positionColor = 0;
+    private FloatingActionButton fab;
 
     private static final String TAG = "Touch";
     @SuppressWarnings("unused")
@@ -82,10 +90,20 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
         page = (ImageView)v.findViewById(R.id.imagePaginaDrawing);
         Glide.with(this).load(image).into(page);
 
+        fab = (FloatingActionButton)v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ColorPickerDialog dialog = new ColorPickerDialog(getContext(), colorSelected, DrawingPage.this, positionColor);
+                dialog.show();
+            }
+        });
+
         completeImage = (FrameLayout)v.findViewById(R.id.containerDraw);
 
         lienzo = (Lienzo)v.findViewById(R.id.drawImage);
         lienzo.setBackgroundColor(Color.TRANSPARENT);
+        lienzo.setColorBrush(colorSelected);
 
         lienzoImage = (ImageView)v.findViewById(R.id.imageLienzo);
 
@@ -178,6 +196,20 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
             }
         });
 
+        customText = (ImageView)v.findViewById(R.id.customText);
+        customText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (typeDraw == TypeDraw.TEXT) {
+                    typeDraw = TypeDraw.NONE;
+                } else {
+                    typeDraw = TypeDraw.TEXT;
+                }
+                lienzo.setTypeDraw(typeDraw);
+                updateViews(typeDraw);
+            }
+        });
+
         ImageView clearAll = (ImageView) v.findViewById(R.id.imageClearAll);
         clearAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +241,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 line.setBackgroundColor(Color.TRANSPARENT);
                 circle.setBackgroundColor(Color.TRANSPARENT);
                 square.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
                 break;
             }
             case PENCIL:{
@@ -218,6 +251,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 line.setBackgroundColor(Color.TRANSPARENT);
                 circle.setBackgroundColor(Color.TRANSPARENT);
                 square.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
                 break;
             }
             case ERASE:{
@@ -227,6 +261,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 line.setBackgroundColor(Color.TRANSPARENT);
                 circle.setBackgroundColor(Color.TRANSPARENT);
                 square.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
                 break;
             }
             case LINE:{
@@ -236,6 +271,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 erase.setBackgroundColor(Color.TRANSPARENT);
                 circle.setBackgroundColor(Color.TRANSPARENT);
                 square.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
                 break;
             }
             case CIRCLE:{
@@ -245,11 +281,23 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 trazo.setBackgroundColor(Color.TRANSPARENT);
                 erase.setBackgroundColor(Color.TRANSPARENT);
                 square.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
                 break;
             }
             case SQUARE:{
                 scroll.setmScrollable(false);
                 square.setBackgroundColor(Color.YELLOW);
+                circle.setBackgroundColor(Color.TRANSPARENT);
+                line.setBackgroundColor(Color.TRANSPARENT);
+                trazo.setBackgroundColor(Color.TRANSPARENT);
+                erase.setBackgroundColor(Color.TRANSPARENT);
+                customText.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            }
+            case TEXT:{
+                scroll.setmScrollable(false);
+                customText.setBackgroundColor(Color.YELLOW);
+                square.setBackgroundColor(Color.TRANSPARENT);
                 circle.setBackgroundColor(Color.TRANSPARENT);
                 line.setBackgroundColor(Color.TRANSPARENT);
                 trazo.setBackgroundColor(Color.TRANSPARENT);
@@ -406,5 +454,13 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
 
         sb.append("]");
         Log.d("Touch Events ---------", sb.toString());
+    }
+
+    @Override
+    public void OnColorSelected(int selectedColor, int positionColor) {
+        colorSelected = selectedColor;
+        this.positionColor = positionColor;
+        lienzo.setColorBrush(colorSelected);
+        fab.setBackgroundTintList(ColorStateList.valueOf(colorSelected));
     }
 }

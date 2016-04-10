@@ -37,6 +37,7 @@ public class Lienzo extends View {
     private static final float STROKE_BIG_WIDTH = 20f;
     private static final float STROKE_WIDTH = 5f;
     private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
+    private int colorBrush;
     private TypeDraw typeDraw = TypeDraw.NONE;
     private Paint paint = new Paint();
     private Paint paintEraser = new Paint();
@@ -67,6 +68,11 @@ public class Lienzo extends View {
         paintEraseAll.setStrokeJoin(Paint.Join.ROUND);
         paintEraseAll.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         paintEraseAll.setStrokeWidth(STROKE_BIG_WIDTH);
+    }
+
+    public void setColorBrush(int colorBrush) {
+        this.colorBrush = colorBrush;
+        configurePaintBrush();
     }
 
     public void save(View v)
@@ -274,7 +280,7 @@ public class Lienzo extends View {
         if (typeDraw == TypeDraw.PENCIL){
             paint.setXfermode(null);
             paint.setAntiAlias(true);
-            paint.setColor(Color.RED);
+            paint.setColor(colorBrush);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
             paint.setStrokeWidth(STROKE_WIDTH);
@@ -289,21 +295,21 @@ public class Lienzo extends View {
         }else if (typeDraw == TypeDraw.LINE){
             paintLine.setXfermode(null);
             paintLine.setAntiAlias(true);
-            paintLine.setColor(Color.GREEN);
+            paintLine.setColor(colorBrush);
             paintLine.setStyle(Paint.Style.STROKE);
             paintLine.setStrokeJoin(Paint.Join.ROUND);
             paintLine.setStrokeWidth(STROKE_WIDTH);
         }else if (typeDraw == TypeDraw.CIRCLE){
             paintCircle.setXfermode(null);
             paintCircle.setAntiAlias(true);
-            paintCircle.setColor(Color.CYAN);
+            paintCircle.setColor(colorBrush);
             paintCircle.setStyle(Paint.Style.STROKE);
             paintCircle.setStrokeJoin(Paint.Join.ROUND);
             paintCircle.setStrokeWidth(STROKE_WIDTH);
         }else if (typeDraw == TypeDraw.SQUARE){
             paintSquare.setXfermode(null);
             paintSquare.setAntiAlias(true);
-            paintSquare.setColor(Color.MAGENTA);
+            paintSquare.setColor(colorBrush);
             paintSquare.setStyle(Paint.Style.STROKE);
             paintSquare.setStrokeJoin(Paint.Join.ROUND);
             paintSquare.setStrokeWidth(STROKE_WIDTH);

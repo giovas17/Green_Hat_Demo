@@ -12,4 +12,5 @@
     <string name="cancel">cancelar</string>
     <string name="title">title</string>
     <string name="message">message</string>
+    <string name="title_color_picker">Selecciona tu color favorito</string>
 </resources>
