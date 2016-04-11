@@ -302,6 +302,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 line.setBackgroundColor(Color.TRANSPARENT);
                 trazo.setBackgroundColor(Color.TRANSPARENT);
                 erase.setBackgroundColor(Color.TRANSPARENT);
+                lienzo.setTextoIngresado("");
                 break;
             }
             default:{

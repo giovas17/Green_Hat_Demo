@@ -15,10 +15,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.giovani.dialogs.TextDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.fragments.Menu;
+import com.giovani.listeners.OnTextListener;
 import com.giovani.objects.DrawingAction;
 
 import java.io.ByteArrayOutputStream;
@@ -32,7 +35,7 @@ import java.util.List;
 /**
  * Created by darkgeat on 3/31/16.
  */
-public class Lienzo extends View {
+public class Lienzo extends View implements OnTextListener {
 
     private static final float STROKE_BIG_WIDTH = 20f;
     private static final float STROKE_WIDTH = 5f;
@@ -45,15 +48,17 @@ public class Lienzo extends View {
     private Paint paintCircle = new Paint();
     private Paint paintSquare = new Paint();
     private Paint paintEraseAll = new Paint();
+    private Paint paintText = new Paint();
     private Path path = new Path();
     private Path pathEraser = new Path();
     private Bitmap bitmap;
     private Canvas mCanvas = new Canvas();
-    private boolean up_reached = false, clearAll = false;
+    private boolean up_reached = false, clearAll = false, dialogShowed = false;
     private float lastTouchX;
     private float lastTouchY;
     private float startX,startY,endX,endY;
     private double radius;
+    private String textoIngresado = "";
     private final RectF dirtyRect = new RectF();
     private List<DrawingAction> drawings = new ArrayList<>();
 
@@ -145,13 +150,23 @@ public class Lienzo extends View {
             mCanvas.drawRect(startX,startY,endX,endY,paintSquare);
         }else if (!up_reached && typeDraw == TypeDraw.SQUARE){
             canvas.drawRect(startX,startY,endX,endY,paintSquare);
+        }else if (up_reached && typeDraw == TypeDraw.TEXT){
+            mCanvas.drawText(textoIngresado,endX,endY,paintText);
+            textoIngresado = "";
+        }else if (!up_reached && typeDraw == TypeDraw.TEXT){
+            canvas.drawText(textoIngresado,endX,endY,paintText);
         }
+
         mCanvas.drawPath(pathEraser, paintEraser);
         if (clearAll){
             mCanvas.drawRect(0,0,getWidth(),getHeight(),paintEraseAll);
             clearAll = false;
         }
         canvas.drawBitmap(bitmap, 0, 0, null);
+    }
+
+    public void setTextoIngresado(String textoIngresado) {
+        this.textoIngresado = textoIngresado;
     }
 
     @Override
@@ -202,6 +217,8 @@ public class Lienzo extends View {
                     }else if (typeDraw == TypeDraw.CIRCLE){
                         radius = Math.sqrt((Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)));
                         invalidate();
+                    }else if (typeDraw == TypeDraw.TEXT){
+                        invalidate();
                     }
                     break;
 
@@ -211,6 +228,14 @@ public class Lienzo extends View {
                         endX = eventX;
                         endY = eventY;
                         invalidate();
+                    }else if (typeDraw == TypeDraw.TEXT){
+                        if (!dialogShowed){
+                            TextDialog dialog = new TextDialog(getContext(), this);
+                            dialog.show();
+                            dialogShowed = true;
+                        }else {
+                            dialogShowed = false;
+                        }
                     }
                     //mCanvas.drawPath(pathEraser,paintEraser);
                     Log.d("OnTouchEvent","ACTION_UP");
@@ -313,6 +338,24 @@ public class Lienzo extends View {
             paintSquare.setStyle(Paint.Style.STROKE);
             paintSquare.setStrokeJoin(Paint.Join.ROUND);
             paintSquare.setStrokeWidth(STROKE_WIDTH);
+        }else if (typeDraw == TypeDraw.TEXT){
+            paintText.setXfermode(null);
+            paintText.setAntiAlias(true);
+            paintText.setColor(colorBrush);
+            paintText.setTextSize(25);
+            paintText.setStyle(Paint.Style.STROKE);
+            paintText.setStrokeJoin(Paint.Join.ROUND);
+            paintText.setStrokeWidth(HALF_STROKE_WIDTH);
         }
+    }
+
+    @Override
+    public void OnOkPressed(String ingresado) {
+        textoIngresado = ingresado;
+    }
+
+    @Override
+    public void OnCancelPressed() {
+
     }
 }

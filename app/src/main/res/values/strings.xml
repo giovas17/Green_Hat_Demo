@@ -13,4 +13,6 @@
     <string name="title">title</string>
     <string name="message">message</string>
     <string name="title_color_picker">Selecciona tu color favorito</string>
+    <string name="ingresa_texto">Ingreso de Texto</string>
+    <string name="texto_etiqueta">Texto de la Etiqueta</string>
 </resources>
