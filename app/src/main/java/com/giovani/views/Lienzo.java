@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.giovani.dialogs.TextDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.fragments.Menu;
+import com.giovani.listeners.OnActionDrawingListener;
 import com.giovani.listeners.OnTextListener;
 import com.giovani.objects.DrawingAction;
 
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * Created by darkgeat on 3/31/16.
  */
-public class Lienzo extends View implements OnTextListener {
+public class Lienzo extends View implements OnTextListener, OnActionDrawingListener {
 
     private static final float STROKE_BIG_WIDTH = 20f;
     private static final float STROKE_WIDTH = 5f;
@@ -61,6 +62,7 @@ public class Lienzo extends View implements OnTextListener {
     private String textoIngresado = "";
     private final RectF dirtyRect = new RectF();
     private List<DrawingAction> drawings = new ArrayList<>();
+    private List<DrawingAction> historicalDrawing = new ArrayList<>();
 
     public Lienzo(Context context, AttributeSet attrs)
     {
@@ -129,6 +131,54 @@ public class Lienzo extends View implements OnTextListener {
             mCanvas = new Canvas(bitmap);
         }
         mCanvas.drawColor(Color.TRANSPARENT);
+
+        canvas.drawPath(path,paint);
+        for(DrawingAction action : drawings){
+            if (action.getTypeDraw() == TypeDraw.PENCIL){
+                Paint aux = action.getBrush();
+                aux.setColor(action.getColor());
+                mCanvas.drawPath(action.getPath(),aux);
+            }
+            if (action.getTypeDraw() == TypeDraw.ERASE){
+                configurePaintBrush();
+                Paint aux = paintEraser;
+                mCanvas.drawPath(action.getPath(),aux);
+            }
+            if (action.getTypeDraw() == TypeDraw.LINE){
+                configurePaintBrush();
+                Paint aux = paintLine;
+                aux.setColor(action.getColor());
+                mCanvas.drawLine(action.getCx(),action.getCy(),action.getFx(),action.getFy(),aux);
+            }
+            if (action.getTypeDraw() == TypeDraw.SQUARE){
+                configurePaintBrush();
+                Paint aux = paintSquare;
+                aux.setColor(action.getColor());
+                mCanvas.drawRect(action.getCx(),action.getCy(),action.getFx(),action.getFy(),aux);
+            }
+            if (action.getTypeDraw() == TypeDraw.CIRCLE){
+                configurePaintBrush();
+                Paint aux = paintCircle;
+                aux.setColor(action.getColor());
+                double rad =  Math.sqrt((Math.pow(action.getFx() - action.getCx(), 2) + Math.pow(action.getFy() - action.getCy(), 2)));
+                mCanvas.drawCircle(action.getFx(),action.getFy(),(float) rad,aux);
+            }
+        }
+
+
+        if (!up_reached && typeDraw == TypeDraw.LINE){
+            canvas.drawLine(startX, startY, endX, endY, paintLine);
+        }else if (!up_reached && typeDraw == TypeDraw.ERASE){
+            configurePaintBrush();
+            canvas.drawPath(pathEraser,paintEraser);
+        }else if (!up_reached && typeDraw == TypeDraw.CIRCLE){
+            canvas.drawCircle(endX,endY,(float)radius,paintCircle);
+        }else if (!up_reached && typeDraw == TypeDraw.SQUARE){
+            canvas.drawRect(startX,startY,endX,endY,paintSquare);
+        }else if (!up_reached && typeDraw == TypeDraw.TEXT){
+            canvas.drawText(textoIngresado,endX,endY,paintText);
+        }
+
         /*if (typeDraw == TypeDraw.PENCIL){
             drawings.add(new DrawingAction(path,paint,TypeDraw.PENCIL,0,0));
         }else if (typeDraw == TypeDraw.ERASE){
@@ -136,7 +186,7 @@ public class Lienzo extends View implements OnTextListener {
         }
         for (DrawingAction action : drawings){
             mCanvas.drawPath(action.getPath(),action.getPaint());
-        }*/
+        }
         mCanvas.drawPath(path, paint);
         if (up_reached && typeDraw == TypeDraw.LINE){
             mCanvas.drawLine(startX,startY,endX,endY,paintLine);
@@ -157,7 +207,7 @@ public class Lienzo extends View implements OnTextListener {
             canvas.drawText(textoIngresado,endX,endY,paintText);
         }
 
-        mCanvas.drawPath(pathEraser, paintEraser);
+        mCanvas.drawPath(pathEraser, paintEraser);*/
         if (clearAll){
             mCanvas.drawRect(0,0,getWidth(),getHeight(),paintEraseAll);
             clearAll = false;
@@ -183,8 +233,10 @@ public class Lienzo extends View implements OnTextListener {
                     startX = eventX;
                     startY = eventY;
                     if (typeDraw == TypeDraw.PENCIL) {
+                        path = new Path();
                         path.moveTo(eventX, eventY);
                     }else if (typeDraw == TypeDraw.ERASE){
+                        paintEraser = new Paint();
                         pathEraser.moveTo(eventX, eventY);
                     }
                     lastTouchX = eventX;
@@ -203,16 +255,17 @@ public class Lienzo extends View implements OnTextListener {
                         float historicalY = event.getHistoricalY(i);
                         expandDirtyRect(historicalX, historicalY);
                         if (typeDraw == TypeDraw.PENCIL) {
+                            paint.setColor(colorBrush);
                             path.lineTo(historicalX, historicalY);
                         }else if (typeDraw == TypeDraw.ERASE){
                             pathEraser.lineTo(historicalX, historicalY);
                         }
-                    }
+                    }/*
                     if (typeDraw == TypeDraw.PENCIL) {
                         path.lineTo(eventX, eventY);
                     }else if (typeDraw == TypeDraw.ERASE){
                         pathEraser.lineTo(eventX, eventY);
-                    }else if (typeDraw == TypeDraw.LINE){
+                    }else */if (typeDraw == TypeDraw.LINE){
                         invalidate();
                     }else if (typeDraw == TypeDraw.CIRCLE){
                         radius = Math.sqrt((Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)));
@@ -224,9 +277,17 @@ public class Lienzo extends View implements OnTextListener {
 
                 case MotionEvent.ACTION_UP:
                     up_reached = true;
-                    if (typeDraw == TypeDraw.LINE || typeDraw == TypeDraw.SQUARE){
+                    if (typeDraw == TypeDraw.PENCIL){
+                        drawings.add(new DrawingAction(path,paint,TypeDraw.PENCIL,colorBrush,0,0,0,0));
+                        path = new Path();
+                    }else if (typeDraw == TypeDraw.ERASE){
+                        drawings.add(new DrawingAction(pathEraser,paintEraser,TypeDraw.ERASE,colorBrush,0,0,0,0));
+                        pathEraser = new Path();
+                    }
+                    if (typeDraw == TypeDraw.LINE || typeDraw == TypeDraw.SQUARE || typeDraw == TypeDraw.CIRCLE){
                         endX = eventX;
                         endY = eventY;
+                        drawings.add(new DrawingAction(path,paint,typeDraw,colorBrush,startX,startY,endX,endY));
                         invalidate();
                     }else if (typeDraw == TypeDraw.TEXT){
                         if (!dialogShowed){
@@ -357,5 +418,25 @@ public class Lienzo extends View implements OnTextListener {
     @Override
     public void OnCancelPressed() {
 
+    }
+
+    @Override
+    public void OnUndo() {
+        if (drawings.size() > 0) {
+            historicalDrawing.add(drawings.get(drawings.size() - 1));
+            drawings.remove(drawings.size() - 1);
+        }
+        mCanvas.drawRect(0,0,getWidth(),getHeight(),paintEraseAll);
+        invalidate();
+    }
+
+    @Override
+    public void OnForward() {
+        if (historicalDrawing.size() > 0){
+            drawings.add(historicalDrawing.get(historicalDrawing.size() - 1));
+            historicalDrawing.remove(historicalDrawing.size() - 1);
+        }
+        mCanvas.drawRect(0,0,getWidth(),getHeight(),paintEraseAll);
+        invalidate();
     }
 }

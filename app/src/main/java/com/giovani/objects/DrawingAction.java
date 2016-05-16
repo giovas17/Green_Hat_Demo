@@ -11,16 +11,21 @@ import com.giovani.enums.TypeDraw;
  */
 public class DrawingAction {
     private Path path;
-    private Paint paint;
+    private Paint brush;
+    private int color;
     private TypeDraw typeDraw;
-    private int cx,cy;
+    private float cx,cy,fx,fy;
 
-    public DrawingAction(@Nullable Path path, Paint paint, TypeDraw typeDraw, @Nullable int cx, @Nullable int cy) {
+    public DrawingAction(@Nullable Path path, Paint paint, TypeDraw typeDraw, int color,
+                         @Nullable float cx, @Nullable float cy, @Nullable float fx, @Nullable float fy) {
         this.path = path;
-        this.paint = paint;
+        this.brush = paint;
         this.typeDraw = typeDraw;
+        this.color = color;
         this.cx = cx;
         this.cy = cy;
+        this.fx = fx;
+        this.fy = fy;
     }
 
     public Path getPath() {
@@ -31,12 +36,12 @@ public class DrawingAction {
         this.path = path;
     }
 
-    public Paint getPaint() {
-        return paint;
+    public Paint getBrush() {
+        return brush;
     }
 
-    public void setPaint(Paint paint) {
-        this.paint = paint;
+    public void setBrush(Paint paint) {
+        this.brush = paint;
     }
 
     public TypeDraw getTypeDraw() {
@@ -47,19 +52,43 @@ public class DrawingAction {
         this.typeDraw = typeDraw;
     }
 
-    public int getCx() {
+    public float getCx() {
         return cx;
     }
 
-    public void setCx(int cx) {
+    public void setCx(float cx) {
         this.cx = cx;
     }
 
-    public int getCy() {
+    public float getCy() {
         return cy;
     }
 
-    public void setCy(int cy) {
+    public void setCy(float cy) {
         this.cy = cy;
+    }
+
+    public float getFx() {
+        return fx;
+    }
+
+    public void setFx(float fx) {
+        this.fx = fx;
+    }
+
+    public float getFy() {
+        return fy;
+    }
+
+    public void setFy(float fy) {
+        this.fy = fy;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

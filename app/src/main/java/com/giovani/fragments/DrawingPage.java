@@ -32,6 +32,7 @@ import com.giovani.dialogs.ColorPickerDialog;
 import com.giovani.dialogs.SimpleDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.greenhat.R;
+import com.giovani.listeners.OnActionDrawingListener;
 import com.giovani.listeners.OnColorListener;
 import com.giovani.views.CustomScroll;
 import com.giovani.views.Lienzo;
@@ -62,6 +63,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
     private Lienzo lienzo;
     private int colorSelected = Color.RED, positionColor = 0;
     private FloatingActionButton fab;
+    private OnActionDrawingListener listener;
 
     private static final String TAG = "Touch";
     @SuppressWarnings("unused")
@@ -104,6 +106,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
         lienzo = (Lienzo)v.findViewById(R.id.drawImage);
         lienzo.setBackgroundColor(Color.TRANSPARENT);
         lienzo.setColorBrush(colorSelected);
+        listener = (OnActionDrawingListener)lienzo;
 
         lienzoImage = (ImageView)v.findViewById(R.id.imageLienzo);
 
@@ -223,6 +226,22 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        ImageView undo = (ImageView) v.findViewById(R.id.undoButton);
+        undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnUndo();
+            }
+        });
+
+        ImageView forward = (ImageView) v.findViewById(R.id.forwardButton);
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnForward();
             }
         });
 
