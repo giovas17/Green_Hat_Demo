@@ -163,6 +163,13 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                 double rad =  Math.sqrt((Math.pow(action.getFx() - action.getCx(), 2) + Math.pow(action.getFy() - action.getCy(), 2)));
                 mCanvas.drawCircle(action.getFx(),action.getFy(),(float) rad,aux);
             }
+            if (action.getTypeDraw() == TypeDraw.TEXT){
+                configurePaintBrush();
+                Paint aux = paintText;
+                aux.setColor(action.getColor());
+                aux.setTextSize(action.getFy()-action.getCy());
+                mCanvas.drawText(textoIngresado,action.getCx(),action.getFy(),aux);
+            }
         }
 
 
@@ -176,7 +183,9 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
         }else if (!up_reached && typeDraw == TypeDraw.SQUARE){
             canvas.drawRect(startX,startY,endX,endY,paintSquare);
         }else if (!up_reached && typeDraw == TypeDraw.TEXT){
-            canvas.drawText(textoIngresado,endX,endY,paintText);
+            canvas.drawRect(startX,startY,endX,endY,paintSquare);
+            paintText.setTextSize(endY - startY);
+            canvas.drawText(textoIngresado,startX,endY,paintText);
         }
 
         /*if (typeDraw == TypeDraw.PENCIL){
@@ -217,6 +226,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
 
     public void setTextoIngresado(String textoIngresado) {
         this.textoIngresado = textoIngresado;
+        dialogShowed = true;
     }
 
     @Override
@@ -239,6 +249,10 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                         paintEraser = new Paint();
                         pathEraser.moveTo(eventX, eventY);
                     }
+                    if (!dialogShowed){
+                        TextDialog dialog = new TextDialog(getContext(), this);
+                        dialog.show();
+                    }
                     lastTouchX = eventX;
                     lastTouchY = eventY;
                     Log.d("OnTouchEvent","ACTION_DOWN");
@@ -260,12 +274,8 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                         }else if (typeDraw == TypeDraw.ERASE){
                             pathEraser.lineTo(historicalX, historicalY);
                         }
-                    }/*
-                    if (typeDraw == TypeDraw.PENCIL) {
-                        path.lineTo(eventX, eventY);
-                    }else if (typeDraw == TypeDraw.ERASE){
-                        pathEraser.lineTo(eventX, eventY);
-                    }else */if (typeDraw == TypeDraw.LINE){
+                    }
+                    if (typeDraw == TypeDraw.LINE){
                         invalidate();
                     }else if (typeDraw == TypeDraw.CIRCLE){
                         radius = Math.sqrt((Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)));
@@ -290,13 +300,8 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                         drawings.add(new DrawingAction(path,paint,typeDraw,colorBrush,startX,startY,endX,endY));
                         invalidate();
                     }else if (typeDraw == TypeDraw.TEXT){
-                        if (!dialogShowed){
-                            TextDialog dialog = new TextDialog(getContext(), this);
-                            dialog.show();
-                            dialogShowed = true;
-                        }else {
-                            dialogShowed = false;
-                        }
+                        dialogShowed = false;
+                        drawings.add(new DrawingAction(null,paintText,typeDraw,colorBrush,startX,startY,endX,endY));
                     }
                     //mCanvas.drawPath(pathEraser,paintEraser);
                     Log.d("OnTouchEvent","ACTION_UP");
@@ -400,11 +405,17 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
             paintSquare.setStrokeJoin(Paint.Join.ROUND);
             paintSquare.setStrokeWidth(STROKE_WIDTH);
         }else if (typeDraw == TypeDraw.TEXT){
+            paintSquare.setXfermode(null);
+            paintSquare.setAntiAlias(true);
+            paintSquare.setColor(colorBrush);
+            paintSquare.setStyle(Paint.Style.STROKE);
+            paintSquare.setStrokeJoin(Paint.Join.ROUND);
+            paintSquare.setStrokeWidth(STROKE_WIDTH);
             paintText.setXfermode(null);
             paintText.setAntiAlias(true);
             paintText.setColor(colorBrush);
             paintText.setTextSize(25);
-            paintText.setStyle(Paint.Style.STROKE);
+            paintText.setStyle(Paint.Style.FILL_AND_STROKE);
             paintText.setStrokeJoin(Paint.Join.ROUND);
             paintText.setStrokeWidth(HALF_STROKE_WIDTH);
         }
@@ -412,7 +423,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
 
     @Override
     public void OnOkPressed(String ingresado) {
-        textoIngresado = ingresado;
+        setTextoIngresado(ingresado);
     }
 
     @Override

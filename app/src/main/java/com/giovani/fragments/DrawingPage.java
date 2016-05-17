@@ -30,10 +30,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.giovani.dialogs.ColorPickerDialog;
 import com.giovani.dialogs.SimpleDialog;
+import com.giovani.dialogs.TextDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.greenhat.R;
 import com.giovani.listeners.OnActionDrawingListener;
 import com.giovani.listeners.OnColorListener;
+import com.giovani.listeners.OnTextListener;
 import com.giovani.views.CustomScroll;
 import com.giovani.views.Lienzo;
 import com.larswerkman.lobsterpicker.LobsterPicker;
@@ -46,7 +48,8 @@ import java.util.Date;
 /**
  * Created by DarkGeat on 3/31/2016.
  */
-public class DrawingPage extends Fragment implements com.giovani.greenhat.DrawingPage.onBackListener, View.OnTouchListener, OnColorListener {
+public class DrawingPage extends Fragment implements com.giovani.greenhat.DrawingPage.onBackListener,
+        View.OnTouchListener, OnColorListener, OnTextListener {
 
     private CustomScroll scroll;
     private TypeDraw typeDraw = TypeDraw.NONE;
@@ -322,6 +325,8 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
                 trazo.setBackgroundColor(Color.TRANSPARENT);
                 erase.setBackgroundColor(Color.TRANSPARENT);
                 lienzo.setTextoIngresado("");
+                TextDialog dialog = new TextDialog(getContext(), this);
+                dialog.show();
                 break;
             }
             default:{
@@ -482,5 +487,16 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
         this.positionColor = positionColor;
         lienzo.setColorBrush(colorSelected);
         fab.setBackgroundTintList(ColorStateList.valueOf(colorSelected));
+    }
+
+    @Override
+    public void OnOkPressed(String ingresado) {
+        lienzo.setTextoIngresado(ingresado);
+    }
+
+    @Override
+    public void OnCancelPressed() {
+        typeDraw = TypeDraw.NONE;
+        updateViews(typeDraw);
     }
 }
