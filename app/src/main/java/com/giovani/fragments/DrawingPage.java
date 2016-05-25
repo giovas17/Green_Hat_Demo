@@ -1,22 +1,13 @@
 package com.giovani.fragments;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,21 +26,15 @@ import com.giovani.enums.TypeDraw;
 import com.giovani.greenhat.R;
 import com.giovani.listeners.OnActionDrawingListener;
 import com.giovani.listeners.OnColorListener;
+import com.giovani.listeners.OnFinishedTextListener;
 import com.giovani.listeners.OnTextListener;
 import com.giovani.views.CustomScroll;
 import com.giovani.views.Lienzo;
-import com.larswerkman.lobsterpicker.LobsterPicker;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by DarkGeat on 3/31/2016.
  */
 public class DrawingPage extends Fragment implements com.giovani.greenhat.DrawingPage.onBackListener,
-        View.OnTouchListener, OnColorListener, OnTextListener {
+        View.OnTouchListener, OnColorListener, OnTextListener, OnFinishedTextListener {
 
     private CustomScroll scroll;
     private TypeDraw typeDraw = TypeDraw.NONE;
@@ -110,6 +95,7 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
         lienzo.setBackgroundColor(Color.TRANSPARENT);
         lienzo.setColorBrush(colorSelected);
         listener = (OnActionDrawingListener)lienzo;
+        lienzo.setListener(this);
 
         lienzoImage = (ImageView)v.findViewById(R.id.imageLienzo);
 
@@ -496,6 +482,12 @@ public class DrawingPage extends Fragment implements com.giovani.greenhat.Drawin
 
     @Override
     public void OnCancelPressed() {
+        typeDraw = TypeDraw.NONE;
+        updateViews(typeDraw);
+    }
+
+    @Override
+    public void OnDrawTextAdded() {
         typeDraw = TypeDraw.NONE;
         updateViews(typeDraw);
     }

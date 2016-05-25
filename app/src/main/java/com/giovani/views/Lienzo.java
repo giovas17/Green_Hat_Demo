@@ -22,6 +22,7 @@ import com.giovani.dialogs.TextDialog;
 import com.giovani.enums.TypeDraw;
 import com.giovani.fragments.Menu;
 import com.giovani.listeners.OnActionDrawingListener;
+import com.giovani.listeners.OnFinishedTextListener;
 import com.giovani.listeners.OnTextListener;
 import com.giovani.objects.DrawingAction;
 
@@ -63,6 +64,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
     private final RectF dirtyRect = new RectF();
     private List<DrawingAction> drawings = new ArrayList<>();
     private List<DrawingAction> historicalDrawing = new ArrayList<>();
+    private OnFinishedTextListener listener;
 
     public Lienzo(Context context, AttributeSet attrs)
     {
@@ -168,7 +170,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                 Paint aux = paintText;
                 aux.setColor(action.getColor());
                 aux.setTextSize(action.getFy()-action.getCy());
-                mCanvas.drawText(textoIngresado,action.getCx(),action.getFy(),aux);
+                mCanvas.drawText(action.getText(),action.getCx(),action.getFy(),aux);
             }
         }
 
@@ -186,6 +188,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
             canvas.drawRect(startX,startY,endX,endY,paintSquare);
             paintText.setTextSize(endY - startY);
             canvas.drawText(textoIngresado,startX,endY,paintText);
+            listener.OnDrawTextAdded();
         }
 
         /*if (typeDraw == TypeDraw.PENCIL){
@@ -249,7 +252,7 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                         paintEraser = new Paint();
                         pathEraser.moveTo(eventX, eventY);
                     }
-                    if (!dialogShowed){
+                    if (!dialogShowed && typeDraw == TypeDraw.TEXT){
                         TextDialog dialog = new TextDialog(getContext(), this);
                         dialog.show();
                     }
@@ -288,20 +291,20 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
                 case MotionEvent.ACTION_UP:
                     up_reached = true;
                     if (typeDraw == TypeDraw.PENCIL){
-                        drawings.add(new DrawingAction(path,paint,TypeDraw.PENCIL,colorBrush,0,0,0,0));
+                        drawings.add(new DrawingAction(path,paint,TypeDraw.PENCIL,colorBrush,"",0,0,0,0));
                         path = new Path();
                     }else if (typeDraw == TypeDraw.ERASE){
-                        drawings.add(new DrawingAction(pathEraser,paintEraser,TypeDraw.ERASE,colorBrush,0,0,0,0));
+                        drawings.add(new DrawingAction(pathEraser,paintEraser,TypeDraw.ERASE,colorBrush,"",0,0,0,0));
                         pathEraser = new Path();
                     }
                     if (typeDraw == TypeDraw.LINE || typeDraw == TypeDraw.SQUARE || typeDraw == TypeDraw.CIRCLE){
                         endX = eventX;
                         endY = eventY;
-                        drawings.add(new DrawingAction(path,paint,typeDraw,colorBrush,startX,startY,endX,endY));
+                        drawings.add(new DrawingAction(path,paint,typeDraw,colorBrush,"",startX,startY,endX,endY));
                         invalidate();
                     }else if (typeDraw == TypeDraw.TEXT){
                         dialogShowed = false;
-                        drawings.add(new DrawingAction(null,paintText,typeDraw,colorBrush,startX,startY,endX,endY));
+                        drawings.add(new DrawingAction(null,paintText,typeDraw,colorBrush,textoIngresado,startX,startY,endX,endY));
                     }
                     //mCanvas.drawPath(pathEraser,paintEraser);
                     Log.d("OnTouchEvent","ACTION_UP");
@@ -449,5 +452,13 @@ public class Lienzo extends View implements OnTextListener, OnActionDrawingListe
         }
         mCanvas.drawRect(0,0,getWidth(),getHeight(),paintEraseAll);
         invalidate();
+    }
+
+    public OnFinishedTextListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnFinishedTextListener listener) {
+        this.listener = listener;
     }
 }

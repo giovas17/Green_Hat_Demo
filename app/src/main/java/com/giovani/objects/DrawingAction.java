@@ -12,20 +12,30 @@ import com.giovani.enums.TypeDraw;
 public class DrawingAction {
     private Path path;
     private Paint brush;
+    private String text;
     private int color;
     private TypeDraw typeDraw;
     private float cx,cy,fx,fy;
 
-    public DrawingAction(@Nullable Path path, Paint paint, TypeDraw typeDraw, int color,
+    public DrawingAction(@Nullable Path path, Paint paint, TypeDraw typeDraw, int color, String text,
                          @Nullable float cx, @Nullable float cy, @Nullable float fx, @Nullable float fy) {
         this.path = path;
         this.brush = paint;
         this.typeDraw = typeDraw;
         this.color = color;
+        this.text = text;
         this.cx = cx;
         this.cy = cy;
         this.fx = fx;
         this.fy = fy;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Path getPath() {
